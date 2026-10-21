@@ -1,0 +1,33 @@
+# Local full stack:  JWT_SECRET=$(openssl rand -hex 32) docker compose up --build
+# Then open http://localhost:8080
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: bloodbridge
+      POSTGRES_USER: bloodbridge
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bloodbridge_local_only}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bloodbridge"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://bloodbridge:${POSTGRES_PASSWORD:-bloodbridge_local_only}@db:5432/bloodbridge
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET, e.g. JWT_SECRET=$(openssl rand -hex 32)}
+      CORS_ORIGINS: http://localhost:8080
+      ENVIRONMENT: development
+    depends_on:
+      db: { condition: service_healthy }
+    ports: ["8000:8000"]
+
+  frontend:
+    build: ./frontend
+    depends_on: [backend]
+    ports: ["8080:80"]
+
+volumes:
+  pgdata:

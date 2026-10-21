@@ -1,0 +1,30 @@
+# Render Blueprint – Blood Bridge as ONE web service:
+#   the React website and the FastAPI backend run together at one address.
+# Database: a free Neon PostgreSQL database (https://neon.com). Render asks you to paste
+# its connection string as DATABASE_URL when you create the Blueprint.
+#
+# Render dashboard > New > Blueprint > choose this GitHub repository > paste DATABASE_URL > Apply.
+services:
+  - type: web
+    name: bloodbridge
+    runtime: python
+    plan: free
+    region: ohio              # same region as the Neon database (AWS US East 2, Ohio)
+    buildCommand: >-
+      cd frontend && npm ci --include=dev && npm run build &&
+      cd ../backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: NODE_VERSION
+        value: "20"
+      - key: ENVIRONMENT
+        value: production
+      - key: FRONTEND_DIST
+        value: ../frontend/dist   # backend serves the built website
+      - key: DATABASE_URL
+        sync: false               # paste your Neon connection string when asked
+      - key: JWT_SECRET
+        generateValue: true       # Render creates a long random secret
