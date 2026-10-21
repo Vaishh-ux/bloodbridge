@@ -59,6 +59,12 @@ class Settings(BaseSettings):
     # Optional: path to a built frontend (frontend/dist) to serve from the API.
     FRONTEND_DIST: str = ""
 
+    # Optional: create (or reset the password of) an administrator at startup.
+    # Handy on hosts without a command line, e.g. Render's free plan.
+    ADMIN_EMAIL: str = ""
+    ADMIN_PASSWORD: str = ""
+    ADMIN_NAME: str = "Administrator"
+
     @field_validator("DATABASE_URL")
     @classmethod
     def normalise_db_url(cls, v: str) -> str:

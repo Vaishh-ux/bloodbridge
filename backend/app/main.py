@@ -9,6 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
 from app.auth import user_from_token
+from app.bootstrap import ensure_admin_from_env
 from app.config import settings
 from app.database import SessionLocal, engine, init_db
 from app.routers import admin, auth, donors, hospitals, matching, notifications, requests, stats
@@ -19,6 +20,7 @@ logger = logging.getLogger("bloodbridge")
 
 # Creates missing tables only; never drops or alters existing data.
 init_db()
+ensure_admin_from_env()
 
 app = FastAPI(
     title=settings.PROJECT_NAME,

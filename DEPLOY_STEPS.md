@@ -64,28 +64,21 @@ uploaded. They are excluded automatically.
 
 ---
 
-## Step 4 — Create your admin account
+## Step 4 — Create your admin account (in Render, no commands)
 
-Admins can't sign up on the website (for security), so you create one from your laptop, saved straight into Neon.
+Admins can't sign up on the website (for security). Render creates the admin for you:
 
-1. In the `backend` folder, create a file named exactly `.env` (no `.txt`) and open it with Notepad.
-2. Put one line in it, with your Neon string after the `=` (no spaces, no quotes):
-   `DATABASE_URL=postgresql://neondb_owner:XXXX@ep-xxxx.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require`
-   Save and close. (Don't type this with `set` in Command Prompt: the `&` in the string breaks it.)
-3. Open **Command Prompt** and run, one line at a time:
+1. Render → your **bloodbridge** service → **Environment** (left menu).
+2. Click **+ Add Environment Variable** and add two variables:
+   | Key | Value |
+   |---|---|
+   | `ADMIN_EMAIL` | your email, e.g. `youremail@gmail.com` |
+   | `ADMIN_PASSWORD` | a password with at least 8 characters |
+3. Click **Save, rebuild, and deploy** (or **Save Changes**). Render restarts in a few minutes.
+4. On your site: **Login** → role **ADMIN** → that email and password.
 
-```
-cd %USERPROFILE%\Documents\BloodBridge-final\BloodBridge\backend
-python -m venv .venv
-.venv\Scripts\activate.bat
-pip install -r requirements.txt
-python create_admin.py --email youremail@gmail.com --name "Admin"
-```
-
-Type a password when asked (nothing shows while typing; that's normal). You should see `Created admin ...`.
-Now log in on your Render link with role **Admin**.
-
-The `.env` file is never uploaded to GitHub. With it in place, running `start_bloodbridge.bat` on your laptop also uses the Neon database.
+Forgot it later? Change `ADMIN_PASSWORD` in the same place and save. The admin password is updated on the next start.
+(Alternative on your own computer: put `DATABASE_URL=...` in `backend/.env` and run `python create_admin.py --email you@example.com`.)
 
 ---
 

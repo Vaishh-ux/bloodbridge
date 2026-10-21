@@ -135,6 +135,7 @@ npm run dev                  # http://localhost:5173  (proxies /api and /ws to :
 | `MIN_DONATION_INTERVAL_DAYS`, `MIN_DONOR_AGE`, `MAX_DONOR_AGE` | | System screening criteria (defaults 90 / 18 / 65). |
 | `PUBLIC_LOCATION_DECIMALS` | | Precision of public request locations (2 ≈ 1 km). |
 | `FRONTEND_DIST` | | Path to `frontend/dist` to serve the SPA from the API (single-service deploy). |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | | Optional: create the administrator at startup (or update its password). Useful on Render's free plan, which has no shell. |
 
 **Frontend** (`frontend/.env.local` or the hosting provider's build settings, see `frontend/.env.example`)
 
@@ -169,7 +170,7 @@ from the FastAPI backend (same address, so no CORS or API-URL settings), plus a 
 3. Render → **New → Blueprint** → choose the repository → paste the Neon string as `DATABASE_URL` → **Apply**.
    Render runs `npm ci && npm run build` for the website and `pip install` for the API, then starts
    `uvicorn` with `FRONTEND_DIST=../frontend/dist`. `JWT_SECRET` is generated automatically.
-4. Create the admin from your own computer against Neon: set `DATABASE_URL` and run `python create_admin.py --email …`.
+4. Create the admin: in Render → **Environment**, add `ADMIN_EMAIL` and `ADMIN_PASSWORD`, then save. The admin is created when the service restarts.
 
 Render's free web service sleeps after 15 minutes without visitors (the next visit takes about a minute).
 Render's own free PostgreSQL is deleted after 30 days, which is why Neon is used.
