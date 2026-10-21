@@ -43,10 +43,16 @@ export default function FindDonors() {
         </Field>
         <Field label="City / area"><input className="input" value={f.city} onChange={set('city')} placeholder="e.g. Chennai" /></Field>
         <Field label="PIN code"><input className="input" value={f.pincode} onChange={set('pincode')} inputMode="numeric" /></Field>
-        <Field label={me ? `Within ${f.radius_km} km of you` : 'Distance'}>
-          {me ? <input type="range" min={2} max={100} value={f.radius_km} onChange={set('radius_km')} className="w-full accent-blood-600" />
-              : <button type="button" onClick={locate} className="btn-ghost w-full"><Crosshair className="w-4 h-4" /> Use my location</button>}
-        </Field>
+        {me ? (
+          <Field label={`Within ${f.radius_km} km of you`}>
+            <input type="range" min={2} max={100} value={f.radius_km} onChange={set('radius_km')} className="w-full accent-blood-600" />
+          </Field>
+        ) : (
+          <div>
+            <span className="label">Distance</span>
+            <button type="button" onClick={locate} className="btn-ghost w-full"><Crosshair className="w-4 h-4" /> Use my location</button>
+          </div>
+        )}
         <label className="flex items-center gap-2 text-sm font-bold text-slate-700"><input type="checkbox" className="accent-blood-600" checked={f.available_only} onChange={set('available_only')} /> Available now</label>
         <label className="flex items-center gap-2 text-sm font-bold text-slate-700"><input type="checkbox" className="accent-blood-600" checked={f.eligible_only} onChange={set('eligible_only')} /> Passes screening criteria</label>
         <div className="lg:col-span-2 flex justify-end"><button className="btn-primary" disabled={busy}><Search className="w-4 h-4" /> Search donors</button></div>

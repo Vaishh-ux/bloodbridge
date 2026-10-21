@@ -34,14 +34,14 @@ export default function Layout() {
         <strong>Medical Safety Notice:</strong> {DISCLAIMER}
       </div>
       <header className="bg-white border-b border-slate-100 sticky top-0 z-[700]">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-2 sm:gap-4">
           <Link to="/" aria-label="Blood Bridge home"><Logo /></Link>
-          <div className="ml-auto flex items-center gap-2">
-            <Link to="/emergency" className="hidden sm:inline-flex whitespace-nowrap btn btn-sm bg-red-50 text-red-700 border border-red-200 hover:bg-red-100">
-              <Siren className="w-4 h-4" /> Emergency Help
+          <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+            <Link to="/emergency" aria-label="Emergency Help" className="inline-flex whitespace-nowrap btn btn-sm px-2 sm:px-3 bg-red-50 text-red-700 border border-red-200 hover:bg-red-100">
+              <Siren className="w-4 h-4" /><span className="hidden sm:inline">Emergency Help</span>
             </Link>
-            <Link to="/create-request" className="hidden md:inline-flex whitespace-nowrap btn-primary btn-sm">
-              <Droplet className="w-4 h-4 fill-white" /> Request Blood
+            <Link to="/create-request" aria-label="Request Blood" className="inline-flex whitespace-nowrap btn-primary btn-sm px-2 sm:px-3">
+              <Droplet className="w-4 h-4 fill-white" /><span className="hidden sm:inline">Request Blood</span>
             </Link>
             {user ? (
               <>
@@ -49,7 +49,7 @@ export default function Layout() {
                 <Link to={DASHBOARD_PATH[user.role]} className="hidden md:inline-flex whitespace-nowrap btn-ghost btn-sm">
                   <LayoutDashboard className="w-4 h-4" /> My Dashboard
                 </Link>
-                <button onClick={() => { logout(); nav('/') }} className="hidden md:inline-flex p-2 text-slate-500 hover:text-blood-600" aria-label="Log out" title="Log out">
+                <button onClick={() => { logout(); nav('/') }} className="hidden lg:inline-flex p-2 text-slate-500 hover:text-blood-600" aria-label="Log out" title="Log out">
                   <LogOut className="w-5 h-5" />
                 </button>
               </>
@@ -59,7 +59,7 @@ export default function Layout() {
                 <Link to="/register" className="btn-primary btn-sm">Register</Link>
               </span>
             )}
-            <button className="lg:hidden p-2 text-slate-700" onClick={() => setOpen((o) => !o)} aria-label="Menu" aria-expanded={open}>
+            <button className="lg:hidden p-1.5 sm:p-2 text-slate-700" onClick={() => setOpen((o) => !o)} aria-label="Menu" aria-expanded={open}>
               {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>

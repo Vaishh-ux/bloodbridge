@@ -25,8 +25,9 @@ function FitBounds({ points }) {
   const map = useMap()
   const key = points.map((p) => p.join(',')).join('|')
   useEffect(() => {
-    if (points.length === 1) map.setView(points[0], 12)
-    else if (points.length > 1) map.fitBounds(points, { padding: [40, 40], maxZoom: 13 })
+    // No animation: leaving the page mid-animation makes Leaflet throw "_leaflet_pos" errors.
+    if (points.length === 1) map.setView(points[0], 12, { animate: false })
+    else if (points.length > 1) map.fitBounds(points, { padding: [40, 40], maxZoom: 13, animate: false })
   }, [key]) // eslint-disable-line react-hooks/exhaustive-deps
   return null
 }

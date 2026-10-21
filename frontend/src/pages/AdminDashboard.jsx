@@ -12,9 +12,9 @@ const PALETTE = ['#e11d48', '#be123c', '#f97316', '#f59e0b', '#0ea5e9', '#2563eb
 
 function ChartCard({ title, children, empty }) {
   return (
-    <div className="card p-5">
+    <div className="card p-5 min-w-0">
       <p className="font-black text-navy-900 text-sm mb-3">{title}</p>
-      {empty ? <p className="text-sm text-slate-400 py-10 text-center">No chart data</p> : <div className="h-56">{children}</div>}
+      {empty ? <p className="text-sm text-slate-400 py-10 text-center">No chart data</p> : <div className="h-56 relative">{children}</div>}
     </div>
   )
 }
