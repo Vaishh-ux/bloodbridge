@@ -135,7 +135,8 @@ npm run dev                  # http://localhost:5173  (proxies /api and /ws to :
 | `MIN_DONATION_INTERVAL_DAYS`, `MIN_DONOR_AGE`, `MAX_DONOR_AGE` | | System screening criteria (defaults 90 / 18 / 65). |
 | `PUBLIC_LOCATION_DECIMALS` | | Precision of public request locations (2 ≈ 1 km). |
 | `FRONTEND_DIST` | | Path to `frontend/dist` to serve the SPA from the API (single-service deploy). |
-| `ADMIN_EMAIL`, `ADMIN_PASSWORD` | | Optional: create the administrator at startup (or update its password). Useful on Render's free plan, which has no shell. |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_NAME` | | Optional: create the administrator at startup (or update its password). Useful on Render's free plan, which has no shell. |
+| `ADMIN2_EMAIL`, `ADMIN2_PASSWORD`, `ADMIN2_NAME` | | Optional second administrator (e.g. the second team member). |
 
 **Frontend** (`frontend/.env.local` or the hosting provider's build settings, see `frontend/.env.example`)
 

@@ -74,6 +74,10 @@ Admins can't sign up on the website (for security). Render creates the admin for
    |---|---|
    | `ADMIN_EMAIL` | your email, e.g. `youremail@gmail.com` |
    | `ADMIN_PASSWORD` | a password with at least 8 characters |
+   | `ADMIN_NAME` (optional) | your name, e.g. `J Sai Vaishnavi` |
+   | `ADMIN2_EMAIL` (optional) | second team member's email |
+   | `ADMIN2_PASSWORD` (optional) | their own password (8+ characters) |
+   | `ADMIN2_NAME` (optional) | their name, e.g. `Shashank` |
 3. Click **Save, rebuild, and deploy** (or **Save Changes**). Render restarts in a few minutes.
 4. On your site: **Login** → role **ADMIN** → that email and password.
 

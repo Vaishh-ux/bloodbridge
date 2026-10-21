@@ -64,6 +64,10 @@ class Settings(BaseSettings):
     ADMIN_EMAIL: str = ""
     ADMIN_PASSWORD: str = ""
     ADMIN_NAME: str = "Administrator"
+    # Optional second administrator (e.g. the second team member).
+    ADMIN2_EMAIL: str = ""
+    ADMIN2_PASSWORD: str = ""
+    ADMIN2_NAME: str = "Administrator 2"
 
     @field_validator("DATABASE_URL")
     @classmethod
