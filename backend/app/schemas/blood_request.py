@@ -33,13 +33,8 @@ class BloodRequestCreate(BaseModel):
         if self.required_date < date.today():
             raise ValueError("Required date cannot be in the past.")
         check_lat_lng(self.latitude, self.longitude)
-        if self.hospital_id is None:
-            missing = [n for n in ("hospital_name", "hospital_address", "city", "state")
-                       if not (getattr(self, n) or "").strip()]
-            if missing:
-                raise ValueError("Hospital name, address, city and state are required.")
-            if self.latitude is None:
-                raise ValueError("Hospital location is required for donor matching. Use 'Locate hospital' or pick a registered hospital.")
+        # Hospital details are checked in the route: a hospital account raising its own
+        # request uses its registered profile, so it sends neither hospital_id nor details.
         return self
 
 

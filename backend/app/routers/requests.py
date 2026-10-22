@@ -77,6 +77,12 @@ async def create_blood_request(request_in: BloodRequestCreate, request: Request,
         if not hospital:
             raise HTTPException(400, "Selected hospital was not found.")
 
+    if hospital is None:
+        if not all((getattr(request_in, n) or "").strip() for n in ("hospital_name", "hospital_address", "city", "state")):
+            raise HTTPException(400, "Hospital name, address, city and state are required.")
+        if request_in.latitude is None:
+            raise HTTPException(400, "Hospital location is required for donor matching. Use 'Locate hospital' or pick a registered hospital.")
+
     def pick(manual, from_hosp):
         return (manual or "").strip() or from_hosp
 
